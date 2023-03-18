@@ -4,7 +4,8 @@ const nextConfig = {
     appDir: true,
   },
   env: {
-    DB_URI: "mongodb://localhost:27017/ecommerce"
+    DB_URI: "mongodb://localhost:27017/ecommerce",
+    API_URL: "http://localhost"
   }
 }
 

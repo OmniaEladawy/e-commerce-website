@@ -1,10 +1,15 @@
-import Image from 'next/image';
 import { Inter } from 'next/font/google';
-import styles from './page.module.css';
+import axios from 'axios';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+const getProducts = async () => {
+	const { data } = await axios.get(`${process.env.API_URL}/api/products`);
+	return data;
+};
+
+export default async function Home() {
+	const products = await getProducts();
 	return (
 		<main>
 			<h1 className='text-red-500 text-center font-bold'>Hello Omnia</h1>
