@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google';
 import axios from 'axios';
+import ListProducts from './../components/products/ListProducts';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,9 +11,5 @@ const getProducts = async () => {
 
 export default async function Home() {
 	const products = await getProducts();
-	return (
-		<main>
-			<h1 className='text-red-500 text-center font-bold'>Hello Omnia</h1>
-		</main>
-	);
+	return <ListProducts data={products} />;
 }
