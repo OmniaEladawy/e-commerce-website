@@ -3,7 +3,8 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 import BreadCrumbs from '../layout/BreadCrumbs';
 
-const ProductDetails = ({productDetails}) => {
+const ProductDetails = ({ productDetails }) => {
+	const inStock = productDetails.stock >= 1;
 	return (
 		<>
 			<BreadCrumbs />
@@ -14,8 +15,12 @@ const ProductDetails = ({productDetails}) => {
 							<div className='border border-gray-200 shadow-sm p-3 text-center rounded mb-5'>
 								<img
 									className='object-cover inline-block'
-									src='/logo192.png'
-									alt='Product title'
+									src={
+										productDetails.images[0]
+											? productDetails.images[0].url
+											: '/images/default_product.png'
+									}
+									alt='Product image'
 									width='340'
 									height='340'
 								/>
@@ -24,8 +29,12 @@ const ProductDetails = ({productDetails}) => {
 								<a className='inline-block border border-gray-200 p-1 rounded-md hover:border-blue-500 cursor-pointer'>
 									<img
 										className='w-14 h-14'
-										src={'/logo192.png'}
-										alt='Product title'
+										src={
+											productDetails.images[0]
+												? productDetails.images[0].url
+												: '/images/default_product.png'
+										}
+										alt='Product image'
 										width='500'
 										height='500'
 									/>
@@ -33,12 +42,14 @@ const ProductDetails = ({productDetails}) => {
 							</div>
 						</aside>
 						<main>
-							<h2 className='font-semibold text-2xl mb-4'>Product title</h2>
+							<h2 className='font-semibold text-2xl mb-4'>
+								{productDetails.name}
+							</h2>
 
 							<div className='flex flex-wrap items-center space-x-2 mb-2'>
 								<div className='ratings'>
 									<StarRatings
-										rating={5}
+										rating={productDetails.ratings}
 										starRatedColor='#ffb829'
 										numberOfStars={5}
 										starDimension='20px'
@@ -46,7 +57,9 @@ const ProductDetails = ({productDetails}) => {
 										name='rating'
 									/>
 								</div>
-								<span className='text-yellow-500'>5</span>
+								<span className='text-yellow-500'>
+									{productDetails.ratings}
+								</span>
 
 								<svg
 									width='6px'
@@ -59,13 +72,11 @@ const ProductDetails = ({productDetails}) => {
 								<span className='text-green-500'>Verified</span>
 							</div>
 
-							<p className='mb-4 font-semibold text-xl'>$234</p>
-
-							<p className='mb-4 text-gray-500'>
-								Lorem Ipsum is simply dummy text of the printing and typesetting
-								industry. Lorem Ipsum has been the industry's standard dummy
-								text ever since the 1500s.
+							<p className='mb-4 font-semibold text-xl'>
+								${productDetails.price}
 							</p>
+
+							<p className='mb-4 text-gray-500'>{productDetails.description}</p>
 
 							<div className='flex flex-wrap gap-2 mb-5'>
 								<button className='px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700'>
@@ -76,20 +87,24 @@ const ProductDetails = ({productDetails}) => {
 
 							<ul className='mb-5'>
 								<li className='mb-1'>
-									{' '}
-									<b className='font-medium w-36 inline-block'>Stock</b>
+									<b className='font-medium w-36 inline-block'>Stock:</b>
+									{inStock ? (
+										<span className='text-green-500'>In Stock</span>
+									) : (
+										<span className='text-red-500'>Out of Stock</span>
+									)}
 								</li>
 								<li className='mb-1'>
-									{' '}
 									<b className='font-medium w-36 inline-block'>Category:</b>
-									<span className='text-gray-500'>Electonics</span>
+									<span className='text-gray-500'>
+										{productDetails.category}
+									</span>
 								</li>
 								<li className='mb-1'>
-									{' '}
 									<b className='font-medium w-36 inline-block'>
 										Seller / Brand:
 									</b>
-									<span className='text-gray-500'>Apple</span>
+									<span className='text-gray-500'>{productDetails.seller}</span>
 								</li>
 							</ul>
 						</main>
