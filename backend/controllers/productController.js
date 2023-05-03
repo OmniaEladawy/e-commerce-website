@@ -1,4 +1,5 @@
 import Product from '../models/product';
+import APIFilters from '../utils/APIFilters';
 
 // add new product
 export const newProduct = async (req, res, next) => {
@@ -10,7 +11,8 @@ export const newProduct = async (req, res, next) => {
 
 // get all products
 export const getProducts = async (req, res, next) => {
-	const products = await Product.find();
+	const apiFilters = new APIFilters(Product.find(), req.query).search();
+	const products = await apiFilters.query;
 	res.status(200).json({
 		products,
 	});
@@ -19,10 +21,10 @@ export const getProducts = async (req, res, next) => {
 // get product
 export const getProduct = async (req, res, next) => {
 	const product = await Product.findById(req.query.id);
-	if(!product){
+	if (!product) {
 		return res.status(404).json({
-            error: 'Product not found.',
-        });
+			error: 'Product not found.',
+		});
 	}
 	res.status(200).json({
 		product,
