@@ -11,7 +11,9 @@ export const newProduct = async (req, res, next) => {
 
 // get all products
 export const getProducts = async (req, res, next) => {
-	const apiFilters = new APIFilters(Product.find(), req.query).search();
+	const apiFilters = new APIFilters(Product.find(), req.query)
+		.search()
+		.filter();
 	const products = await apiFilters.query;
 	res.status(200).json({
 		products,
