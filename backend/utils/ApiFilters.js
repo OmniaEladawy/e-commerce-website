@@ -20,7 +20,6 @@ class APIFilters {
 
 	filter() {
 		const queryCopy = { ...this.queryStr };
-
 		const removeFields = ['keyword', 'page'];
 		removeFields.forEach((el) => delete queryCopy[el]);
 
@@ -42,6 +41,7 @@ class APIFilters {
 				output[prop][`$${operator}`] = queryCopy[key];
 			}
 		}
+
 		// { price: { $gte: 100, $lte: 1000 } }
 
 		this.query = this.query.find(output);

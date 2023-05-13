@@ -7,9 +7,9 @@ import queryString from 'query-string';
 const inter = Inter({ subsets: ['latin'] });
 
 const getProducts = async (searchParams) => {
-	console.log('searchParams', searchParams);
 	const urlParams = {
 		keyword: searchParams.keyword,
+		page: searchParams.page,
 	};
 
 	const searchQuery = queryString.stringify(urlParams);

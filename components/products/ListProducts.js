@@ -4,9 +4,9 @@ import Header from './../layout/Header';
 import Filters from './../layout/Filters';
 import StarRatings from 'react-star-ratings';
 import ProductItem from './ProductItem';
+import CustomPagination from '../layout/CustomPagination';
 
 const ListProducts = ({ data }) => {
-	console.log(data);
 	return (
 		<>
 			<Header />
@@ -16,13 +16,18 @@ const ListProducts = ({ data }) => {
 						<Filters />
 
 						<main className='md:w-2/3 lg:w-3/4 px-3'>
-							{data?.products?.map((product,index)=>{
+							{data?.products?.map((product, index) => {
 								return (
 									<div key={index}>
-										<ProductItem product={product}/>
+										<ProductItem product={product} />
 									</div>
-								)
+								);
 							})}
+
+							<CustomPagination
+								resPerPage={data?.resPerPage}
+								productsCount={data?.filteredProductsCount}
+							/>
 						</main>
 					</div>
 				</div>
