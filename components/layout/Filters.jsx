@@ -6,6 +6,8 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 
 const Filters = () => {
+	const [min, setMin] = React.useState('');
+	const [max, setMax] = React.useState('');
 	const router = useRouter();
 	let queryParams;
 
@@ -33,6 +35,14 @@ const Filters = () => {
 			}
 			const path = window.location.pathname + '?' + queryParams.toString();
 			router.push(path);
+		}
+	}
+
+	function handleButtonClick() {
+		if (typeof window !== 'undefined') {
+			queryParams = new URLSearchParams(window.location.search);
+			queryParams = getPriceQueryParams(queryParams, 'min', min);
+			queryParams = getPriceQueryParams(queryParams, 'max', max);
 		}
 	}
 
